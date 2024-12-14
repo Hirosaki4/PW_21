@@ -33,14 +33,14 @@ protected:
     double revenue;
 
 public:
-    Attraction(std::string name, std::string type, int visitors, double revenue)
-        : name(std::move(name)), type(std::move(type)), visitors(visitors), revenue(revenue) {}
+    Attraction(string name, string type, int visitors, double revenue)
+        : name(move(name)), type(move(type)), visitors(visitors), revenue(revenue) {}
 
     virtual void operate() = 0;
 
     virtual ~Attraction() = default;
 
-    friend std::ostream& operator<<(std::ostream& os, const Attraction& attraction) {
+    friend ostream& operator<<(ostream& os, const Attraction& attraction) {
         os << "Attraction: " << attraction.name << ", Type: " << attraction.type
             << ", Visitors: " << attraction.visitors << ", Revenue: $" << attraction.revenue;
         return os;
@@ -56,28 +56,28 @@ class RecyclingRide : public Attraction {
     int recycledMaterials;
 
 public:
-    RecyclingRide(std::string name, int visitors, double revenue, int recycledMaterials)
-        : Attraction(std::move(name), "Recycling Ride", visitors, revenue), recycledMaterials(recycledMaterials) {}
+    RecyclingRide(string name, int visitors, double revenue, int recycledMaterials)
+        : Attraction(move(name), "Recycling Ride", visitors, revenue), recycledMaterials(recycledMaterials) {}
 
     void operate() override {
-        std::cout << name << " is operating and promoting recycling awareness!\n";
+        cout << name << " is operating and promoting recycling awareness!\n";
     }
 
     void manage() override {
-        std::cout << "Managing " << name << ". Adjusting recycling bins and schedules.\n";
+        cout << "Managing " << name << ". Adjusting recycling bins and schedules.\n";
     }
 
     void maintain() override {
-        std::cout << "Performing maintenance on " << name << ". Ensuring recycling machines are operational.\n";
+        cout << "Performing maintenance on " << name << ". Ensuring recycling machines are operational.\n";
     }
 
     void report() const override {
-        std::cout << name << " has recycled " << recycledMaterials << " items.\n";
+        cout << name << " has recycled " << recycledMaterials << " items.\n";
     }
 };
 
 int main() {
-    std::vector<std::shared_ptr<Attraction>> attractions;
+    vector<std::shared_ptr<Attraction>> attractions;
 
     attractions.push_back(std::make_shared<RecyclingRide>("EcoWheel", 1200, 3000.50, 500));
 
@@ -86,7 +86,7 @@ int main() {
         attraction->manage();
         attraction->maintain();
         attraction->report();
-        std::cout << *attraction << "\n\n";
+        cout << *attraction << "\n\n";
     }
 
     return 0;
